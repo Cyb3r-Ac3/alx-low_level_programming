@@ -8,17 +8,17 @@
 
 char *rot13(char *s)
 {
-	int b, v;
+	int i, j;
 	char a[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	char b[] = "nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM";
 
-	for (b = 0; *(s + b); b++)
+	for (i = 0; *(s + i); i++)
 	{
-		for (v = 0; v < 52; v++)
+		for (j = 0; j < 52; j++)
 		{
-			if (a[v] == *(s + b))
+			if (a[j] == *(s + i))
 			{
-				*(s + b) = b[v];
+				*(s + i) = b[j];
 				break;
 			}
 		}
