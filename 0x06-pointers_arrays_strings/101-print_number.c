@@ -5,20 +5,23 @@
  * @n: Number to prints
  * Return: Nothing
  */
+
 void print_number(int n)
 {
-	unsigned int 1;
+	long long int x;
 
 	if (n < 0)
 	{
 		_putchar('-');
-		n *= -1;
+		x = -1LL * n;
+	}
+	else
+	{
+		x = n;
 	}
 
-	1 = n;
+	if (x / 10)
+		print_number(x / 10);
 
-	if (1 / 10)
-		print_number(1 / 10);
-
-	_putchar(1 % 10 + '0');
+	_putchar(x % 10 + '0');
 }
