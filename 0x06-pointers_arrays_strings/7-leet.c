@@ -1,4 +1,4 @@
-#include "mian.h"
+#include "main.h"
 
 /**
  * leet - encodes a string into 1337
@@ -23,4 +23,3 @@ char *leet(char *s)
 	return (s);
 }
 /* Read The Fucking Manual */
-
