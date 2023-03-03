@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * infinite_add - adds 2 numbers
+ * infinite_add - adds two numbers
  * @n1: first number
  * @n2: second number
  * @r: buffer for result
@@ -10,38 +10,37 @@
  */
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-	int a, b, c, d, e, f;
+	int i, j, k, l, m, n;
 
-	for (a = 0; n1[a]; a++)
+	for (i = 0; n1[i]; i++)
 		;
-	for (b = 0; n2[b]; b++)
+	for (j = 0; n2[j]; j++)
 		;
-	if (a > size_r || b > size_r)
+	if (i > size_r || j > size_r)
 		return (0);
-
-	e = 0;
-	for (a -= 1, b -= 1, c = 0; c < size_r - 1; a--, b--, c++)
+	m = 0;
+	for (i -= 1, j -= 1, k = 0; k < size_r - 1; i--, j--, k++)
 	{
-		f = e;
-		if (a >= 0)
-			n += n1[a] - '0';
-		if (b >= 0)
-			n += n2[b] - '0';
-		if (a < 0 && b < 0 && f == 0)
+		n = m;
+		if (i >= 0)
+			n += n1[i] - '0';
+		if (j >= 0)
+			n += n2[j] - '0';
+		if (i < 0 && j < 0 && n == 0)
 		{
 			break;
 		}
-		e = f / 10;
-		r[c] = n % 10 + '0';
+		m = n / 10;
+		r[k] = n % 10 + '0';
 	}
-	r[c] = '\0';
-	if (a >= 0 || b >= 0 || e)
+	r[k] = '\0';
+	if (i >= 0 || j >= 0 || m)
 		return (0);
-	for (c -= 1, d = 0; d < c; c--, d++)
+	for (k -= 1, l = 0; l < k; k--, l++)
 	{
-		e = r[c];
-		r[c] = r[d];
-		r[d] = e;
+		m = r[k];
+		r[k] = r[l];
+		r[l] = m;
 	}
 	return (r);
 }
