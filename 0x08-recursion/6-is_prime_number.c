@@ -10,11 +10,13 @@
 
 int is_prime_number(int n)
 {
+	int x;
+
 	if (n <= 1)
 	{
 		return (0); /* 1 and negative numbers are not prime */
 	}
-	for (int x = 2; x <= sqrt(n); x++)
+	for (x = 2; x <= sqrt(n); x++)
 	{
 		if (n % x == 0)
 		{
