@@ -14,31 +14,20 @@
  */
 void init_dog(struct dog *d, char *name, float age, char *owner)
 {
-	/* Allocate memory for the dog struct */
-	*d = malloc(sizeof(struct dog));
-
+	/* Return NULL if the allocation failed */
 	if (d == NULL)
-	{
-		/* Return immediately if the pointer is null */
 		return;
-	}
-	/* Allocate memory for name and owner strings */
-	(*d)->name = malloc(strlen(name) + 1);
-	(*d)->owner = malloc(strlen(owner) + 1);
 
-	if ((*d)->name == NULL || (*d)->owner == NULL)
-	{
-		/* free memory and return NULL if allocated failed */
-		free((*d)->name);
-		free((*d)->owner);
-		free(*d);
-		return;
-	}
-
-	/* Copy name and owner strings into allocated memory */
-	strcpy(d->name, owner);
-	strcpy(d->owner, owner);
-
-	/* set the dog's age */
+	d->name = strdup(name);
+	d->owner = strdup(owner);
 	d->age = age;
+
+	if (d->name == NULL || d->owner == NULL)
+	{
+		/* handle memory allocation error */
+		free(d->name);
+		free(d->owner);
+		d->name = NULL;
+		d->owner = NULL;
+	}
 }
