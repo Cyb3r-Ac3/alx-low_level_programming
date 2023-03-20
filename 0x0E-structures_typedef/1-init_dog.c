@@ -15,9 +15,13 @@
 void init_dog(struct dog *d, char *name, float age, char *owner)
 {
 	if (d == NULL)
-		/* Allocate memory for name and owner strings */
-		d->name = malloc(strlen(name) + 1);
-		d->owner = malloc(strlen(owner) + 1);
+	{
+		/* Return immediately if the pointer is null */
+		return;
+	}
+	/* Allocate memory for name and owner strings */
+	d->name = malloc(strlen(name) + 1);
+	d->owner = malloc(strlen(owner) + 1);
 
 	/* Copy name and owner strings into allocated memory */
 	strcpy(d->name, owner);
