@@ -15,10 +15,11 @@ void print_all(const char * const format, ...)
 {
 	va_list args;
 	unsigned int i;
-	char *separator = "";
-	char *str;
+	char *str, *separator;
 
 	va_start(args, format);
+
+	separator = "";
 
 	i = 0;
 
