@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include "variadic_functions.h"
 /**
  * print_all - prints anything
  * @format: list of types of arguments passed to the function
@@ -13,15 +14,16 @@
 void print_all(const char * const format, ...)
 {
 	va_list args;
-	int i = 0, j;
+	unsigned int i;
 	char *separator = "";
 	char *str;
 
 	va_start(args, format);
 
+	i = 0;
+
 	while (format && format[i])
 	{
-		j = 1;
 		switch (format[i])
 		{
 			case 'c':
@@ -40,7 +42,7 @@ void print_all(const char * const format, ...)
 				printf("%s%s", separator, str);
 				break;
 			default:
-				j++;
+				i++;
 				continue;
 		}
 		separator = ", ";
