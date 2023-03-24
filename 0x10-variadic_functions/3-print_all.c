@@ -15,7 +15,7 @@
 void print_all(const char * const format, ...)
 {
 	va_list args;
-	int i = 0, j;
+	int i;;
 	char *separator = "";
 	char *str;
 
@@ -23,7 +23,6 @@ void print_all(const char * const format, ...)
 
 	while (format && format[i])
 	{
-		j = 1;
 		switch (format[i])
 		{
 			case 'c':
@@ -42,7 +41,7 @@ void print_all(const char * const format, ...)
 				printf("%s%s", separator, str);
 				break;
 			default:
-				j++;
+				i++;
 				continue;
 		}
 		separator = ", ";
