@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include "variadic_functions.h"
 
 /**
  * print_all - prints anything
@@ -14,17 +15,15 @@
 void print_all(const char * const format, ...)
 {
 	va_list args;
-	unsigned int i;
-	char *str, *separator;
+	int i = 0, j;
+	char *separator = "";
+	char *str;
 
-	va_start(args, format);
-
-	separator = "";
-
-	i = 0;
+	va_start(args, format)
 
 	while (format && format[i])
 	{
+		j = 1;
 		switch (format[i])
 		{
 			case 'c':
@@ -38,15 +37,16 @@ void print_all(const char * const format, ...)
 				break;
 			case 's':
 				str = va_arg(args, char *);
-				if (str == NULL)
+				if (!str)
 					str = "(nil)";
 				printf("%s%s", separator, str);
 				break;
 			default:
-				i++;
-				continue;
+				j = 0;
+				break;
 		}
-		separator = ", ";
+		if (j && separator[0] != 0)
+			separator = ", ";
 		i++;
 	}
 
