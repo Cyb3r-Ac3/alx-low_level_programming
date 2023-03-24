@@ -37,16 +37,15 @@ void print_all(const char * const format, ...)
 				break;
 			case 's':
 				str = va_arg(args, char *);
-				if (!str)
+				if (str == NULL)
 					str = "(nil)";
 				printf("%s%s", separator, str);
 				break;
 			default:
-				j = 0;
-				break;
+				j++;
+				continue;
 		}
-		if (j && separator[0] != 0)
-			separator = ", ";
+		separator = ", ";
 		i++;
 	}
 
