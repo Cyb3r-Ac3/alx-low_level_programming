@@ -1,24 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "function_pointers.h"
-
-/**
- * print_opcodes - prints the opcodes of a fucntion
- * @start: a pointer to the start of the function's opcodes
- * @n_bytes: the number of opcodes to print
- *
- * Return: void
- */
-void print_opcodes(unsigned char *start, int n_bytes)
-{
-	int i;
-
-	for (i = 0; i < n_bytes; i++)
-	{
-		printf("%02x", *(start + i));
-	}
-	printf("\n");
-}
 
 /**
  * main - prints its own opcodes
