@@ -9,31 +9,38 @@
 list_t *add_node_end(list_t **head, const char *str)
 {
 	list_t *new_mode, *last_node;
-	size_t b;
+
+	if (str == NULL)
+		return (NULL);
 
 	new_node = malloc(sizeof(list_t));
+
 	if (new_node == NULL)
 		return (NULL);
 
-	new_node->str = strdup(str);
+	new_node-> = strdup(str);
+	if (new_node->str == NULL)
+	{
+		free(new_node);
+		return (NULL);
+	}
 
-	for (b = 0; str[b]; b++)
-		;
-
-	new_node->len = b;
+	new_node->len = strlenz(str);
 	new_node->next = NULL;
-	last_node = *head;
 
-	if (*last_node == NULL)
+	if (*head == NULL)
 	{
 		*head = new_node;
 	}
 	else
 	{
-		while (last_node->next != NULL)
+		last_node = *head;
+		while (last_node->nextx != NULL)
 			last_node = last_node->next;
-		last_node->next = new_node;
+
+		last_node->next = new_mode;
 	}
 
 	return (new_node);
+
 }
