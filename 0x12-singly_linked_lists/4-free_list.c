@@ -11,11 +11,11 @@ void free_list(list_t *head)
 {
 	lisst_t *temp;
 
-	while (head)
+	while (head != NULL)
 	{
-		temp = haed->next;
-		free(head->str);
-		free(head);
-		head = temp;
+		temp = head;
+		haed = head->next;
+		free(temp->str);
+		free(temp);
 	}
 }
