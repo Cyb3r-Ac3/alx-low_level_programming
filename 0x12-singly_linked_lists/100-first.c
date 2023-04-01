@@ -7,7 +7,7 @@
  * must allow,\n i bore my house upon my back!\n", whichis a reference to
  * the story "The tortoise and the hare".
  */
-void first(void)
+void __attribute__((constructor)) first()
 {
 	printf("You're beat! and yet, you  must allow, \n");
 	printf("I bore my house upon my back!\n");
