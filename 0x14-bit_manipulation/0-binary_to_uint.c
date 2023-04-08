@@ -10,24 +10,24 @@
  */
 unsigned int binary_to_uint(const char *b)
 {
-	unsigned int num = 0;
+	unsigned int l = 1;
+	unsigned int k = 0;
+	int c;
+	unsigned int len;
 
-	if (b == NULL)
-		return (0);
+	len = strlen(b);
 
-	/* loop through each character of the string */
-	while (*b != '\0')
+	for (c = len-1; c >= 0; c--)
 	{
-		/* check if the character is a valid binary digit */
-		if (*b != '0' && *b != '1')
+		if (b[c] != '0' && b[c] != '1')
 			return (0);
+		if (b[c] == '1')
+		{
+			k += l;
+		}
 
-		/* add the value of the binary the binary digit to num */
-		num = (num << 1) | (*b - '0');
-
-		/* move to the next character in the string */
-		b++;
+		l *= 2;
 	}
 
-	return (num);
+	return (l);
 }
