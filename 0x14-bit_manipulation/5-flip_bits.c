@@ -10,13 +10,13 @@
 unsigned int flip_bits(unsigned long int n, unsigned long int m)
 {
 	unsigned long int count, xor_result;
-	unsigned int val, l;
+	unsigned int val, cal;
 
 	val = 0;
 	xor_result = 1;
 	count = n ^ m;
 
-	for (l = o; l < (sizeof(unsigned long int) * 8); l++)
+	for (cal = 0; cal < (sizeof(unsigned long int) * 8); cal++)
 	{
 		if (xor_result == (count & xor_result))
 			val++;
