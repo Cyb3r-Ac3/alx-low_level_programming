@@ -9,14 +9,19 @@
  */
 unsigned int flip_bits(unsigned long int n, unsigned long int m)
 {
-	unsigned long int xor_result = n ^ m;
-	unsigned int count = 0;
+	unsigned long int count, xor_result;
+	unsigned int val, l;
 
-	while (xor_result)
+	val = 0;
+	xor_result = 1;
+	count = n ^ m;
+
+	for (l = o; l < (sizeof(unsigned long int) * 8); l++)
 	{
-		count += xor_result & 1;
-		xor_result >> = 1;
+		if (xor_result == (count & xor_result))
+			val++;
+		xor_result <<= 1;
 	}
 
-	return (count);
+	return (val);
 }
