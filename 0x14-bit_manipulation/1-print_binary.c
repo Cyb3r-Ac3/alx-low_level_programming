@@ -1,4 +1,22 @@
 #include "main.h"
+/**
+ * _pow - calculates (base ^ power)
+ *
+ * @base: base of the exponent
+ *
+ * @power: power of the exponent
+ *
+ * Return: value of (base ^ power)
+ */
+unsigned long int _pow(unsigned int base, unsigned int power)
+{
+	unsigned long int result = 1;
+
+	for (unsigned int k = 0; k < power; k++)
+		result *= base;
+
+	return (result);
+}
 
 /**
  * print_binary - prints the binary representation of a number
@@ -32,22 +50,3 @@ void print_binary(unsigned long int n)
 	}
 }
 
-/**
- * _pow - calculates (base ^ power)
- *
- * @base: base of the exponent
- *
- * @power: power of the exponent
- *
- * Return: value of (base ^ power)
- */
-unsigned long int _pow(unsigned int base, unsigned int power)
-{
-	unsigned long int result = 1;
-	unsigned int k;
-
-	for (k = 0; k < power; k++)
-		result *= base;
-
-	return (result);
-}
