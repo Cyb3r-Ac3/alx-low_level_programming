@@ -9,21 +9,45 @@
  */
 void print_binary(unsigned long int n)
 {
-	int v, count_num = 0;
-	unsigned long int result;
-
-	for (v = 63; v >= 0; v++)
+	if (n == 0)
 	{
-		result = n >> v;
+		_putchar('0');
+		return;
+	}
 
-		if (result & 1)
+	unsigned long int num = _pow(2, sizeof(unsigned long int) * 8 - 1);
+	int result = 0;
+
+	while (num > 0)
+	{
+		if ((n & num) == num)
 		{
 			_putchar('1');
-			count_num++;
+			print = 1;
 		}
-		else if (count_num)
+		else if (result)
 			_putchar('0');
+
+		num >>= 1;
 	}
-	if (!count_num)
-		_putchar('0');
+}
+
+/**
+ * _pow - calculates (base ^ power)
+ *
+ * @base: base of the exponent
+ *
+ * @power: power of the exponent
+ *
+ * Return: value of (base ^ power)
+ */
+unsigned long int _pow(unsigned int base, unsigned int power)
+{
+	unsigned long int result = 1;
+	unsigned int k;
+
+	for (k = 0; k < power; k++)
+		result *= base;
+
+	return (result);
 }
