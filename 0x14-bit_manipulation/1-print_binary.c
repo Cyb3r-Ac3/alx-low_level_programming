@@ -11,12 +11,13 @@
 unsigned long int _pow(unsigned int base, unsigned int power)
 {
 	unsigned long int result = 1;
+	unsigned int k;
 
-	for (unsigned int k = 0; k < power; k++)
+	for (k = 0; k < power; k++)
 		result *= base;
-
 	return (result);
 }
+
 
 /**
  * print_binary - prints the binary representation of a number
@@ -27,26 +28,23 @@ unsigned long int _pow(unsigned int base, unsigned int power)
  */
 void print_binary(unsigned long int n)
 {
-	if (n == 0)
-	{
-		_putchar('0');
-		return;
-	}
+	unsigned long int num;
+	int print = 0;
 
-	unsigned long int num = _pow(2, sizeof(unsigned long int) * 8 - 1);
-	int result = 0;
 
-	while (num > 0)
+	num = _pow(2, sizeof(unsigned long int) * 8 - 1);
+
+	while (num != 0)
 	{
-		if ((n & num) == num)
+		if (n & num)
 		{
-			_putchar('1');
+			putchar('1');
 			print = 1;
 		}
-		else if (result)
-			_putchar('0');
-
+		else if (print)
+			putchar('0');
 		num >>= 1;
 	}
+	if (!print)
+		putchar('0);
 }
-
