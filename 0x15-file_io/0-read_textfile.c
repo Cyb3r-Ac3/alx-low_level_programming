@@ -1,9 +1,5 @@
 #include "main.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 
 /**
  * read_textfile - reads a text file and prints it to standard output
@@ -36,7 +32,7 @@ ssize_t read_textfile(const char *filename, size_t letters)
 	bytes_read = read(file_descriptor, buffer, letters);
 	close(file_descriptor);
 
-	if (bytes-read == -1)
+	if (bytes_read == -1)
 	{
 		free(buffer);
 		return (0);
