@@ -1,119 +1,89 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <fcntl.h>
+#include <unistd.h>
 
-#define BUFFER_SIZE 1024
-
-void print_error(const char *message, const char *filename,
-		int fd, int exit_code);
+void check_IO_stat(int stat, int fd, char *filename, char mode);
 
 /**
- * main - entry point for the program
- * @argc: number of command-line arguments
- * @argv: array of command-line arguments
+ * main - Copies the contents of one file to another.
  *
- * Return: 0 on success, or the appropriate error
- * code if an error occurs
+ * @argc: the number of command-line arguments
+ * @argv: the array of command-line arguments
+ *
+ * Return: 0 on success, a non-zero value otherwise
  */
 int main(int argc, char *argv[])
 {
-	int fd_from, fd_to, bytes_read, bytes_written, close_from, close_to;
-	char buffer[BUFFER_SIZE];
-	struct stat st;
+	 int src_fd, dest_fd, n_read = 1024, wrote, close_src, close_dest;
+	 unsigned int mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
+	 char buffer[1024];
 
-	if (argc != 3)
-	{
-		dprintf(STDERR_FILENO, "Usage: %s file_from file_to\n", argv[0]);
-		exit(97);
-	}
+	 if (argc != 3)
+	 {
+		 fprintf(stderr, "Usage: %s file_from file_to\n", argv[0]);
+		 exit(EXIT_FAILURE);
+	 }
 
-	/* open source file */
-	fd_from = open(argv[1], O_RDONLY);
-	if (fd_from == -1)
-	{
-		print_error("Error: Can't read from file", argv[1], -1, 98);
-	}
+	 src_fd = open(argv[1], O_RDONLY);
+	 check_IO_stat(src_fd, -1, argv[1], 'O');
 
-	/* check if destination file exists */
-	if (stat(argv[2], &st) == 0)
-	{
-		fd_to = open(argv[2], O_WRONLY | O_TRUNC);
-		if (fd_to == -1)
-		{
-			print_error("Error: Can't write to file", argv[2], -1, 99);
-		}
-	}
-	else
-	{
-		fd_to = open(argv[2], O_WRONLY | O_CREAT | O_EXCL, S_IRUSR |
-				S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
-		if (fd_to == -1)
-		{
-			 print_error("Error: Can't create file", argv[2], -1, 99);
-		}
-	}
+	 dest_fd = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, mode);
+	 check_io_stat(dest_fd, -1, argv[2], 'W');
 
-	/* Copy contents of source file to destination file */
-	while ((bytes_read = read(fd_from, buffer, BUFFER_SIZE)) > 0)
-	{
-		bytes_written = write(fd_to, buffer, bytes_read);
-		if (bytes_written == -1 || bytes_written != bytes_read)
-		{
-			print_error("Error: Can't write to file", argv[2], fd_to, 99);
-		}
-	}
+	 while (n_read == 1024)
+	 {
+		 n_read = read(src_fd, buffer, sizeof(buffer));
+		 if (n_read == -1)
+			 check_io_stat(-1, -1, argv[1], 'O');
+		 wrote = write(dest_fd, buffer, n_read);
+		 if (wrote == -1)
+			 check_io_stat(-1, -1, argv[2], 'W');
+	 }
 
-	if (bytes_read == -1)
-	{
-		 print_error("Error: Can't read from file", argv[1], fd_from, 98);
-	}
+	 close_src = close(src_fd);
+	 check_io_stat(close_src, src_fd, NULL, 'C');
+	 close_dest = close(dest_fd);
+	 check_io_stat(close_dest, dest_fd, NULL, 'C');
 
-	/* close file descriptors */
-	close_from = close(fd_from);
-	if (close_from == -1)
-	{
-		print_error("Error: Can't close file descriptor", NULL, fd_from, 100);
-	}
-	close_to = close(fd_to);
-	if (close_to == -1)
-	{
-		print_error("Error: Can't close file descriptor", NULL, fd_to, 100);
-	}
-
-	return (0);
+	 return (0);
 }
 
 /**
- * check_io_stat - checks if a file can be opened or closed
+ * check_io_stat - checks the status of a file operation
  *
- * @stat: file descriptor of the file to be opened
+ * @status: the return value of the file operation
  *
- * @filename: name of the file
+ * @fd: the file descriptor associated with the file operation
  *
- * @mode: closing or opening
+ * @filename: the name of the file being operated on
  *
- * @fd: file descriptor
+ * @mode: the mode of the file operation
+ * ('C' for close, 'O' for open, 'W' for write)
+ *
+ * This function checks the return value of a file
+ * operation and prints an error message and exits
+ * with the appropriate exit code if the operation failed.
  *
  * Return: void
  */
-void check_io_stat(int stat, int fd, char *filename, char mode)
+void check_io_stat(int status, int fd, char *filename, char mode)
 {
 	if (mode == 'C' && stat == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: can't close fd %d/n", fd);
-		exit(100);
+		fprintf(stderr, "Error: Can't close fd %d\n", fd);
+		exit(EXIT_FAILURE);
 	}
-	else if (mode == 'O' && stat == -1)
+	else if (mode == 'O' && status == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filename);
+		fprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filename);
 		exit(98);
 	}
-	else if (mode == 'W' && stat == -1)
+	else if (mode == 'W' && status == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", filename);
+		fprintf(STDERR_FILENO, "Error: Can't write to %s\n", filename);
 		exit(99);
 	}
 }
