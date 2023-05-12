@@ -87,26 +87,33 @@ int main(int argc, char *argv[])
 }
 
 /**
- * print_error - prints error message and exits program with error code
+ * check_io_stat - checks if a file can be opened or closed
  *
- * @message: error message to print
+ * @stat: file descriptor of the file to be opened
  *
- * @filename: name of file causing the error, or NULL if not applicable
+ * @filename: name of the file
  *
- * @fd: file descriptor causing the error, or -1 if not applicable
+ * @mode: closing or opening
  *
- * @exit_code: error code to exit program with
+ * @fd: file descriptor
+ *
+ * Return: void
  */
-void print_error(const char *message, const char *filename,
-		int fd, int exit_code)
+void check_io_stat(int stat, int fd, char *filename, char mode)
 {
-	if (filename != NULL)
+	if (mode == 'C' && stat == -1)
 	{
-		dprintf(STDERR_FILENO, "%s %s\n", message, filename);
+		dprintf(STDERR_FILENO, "Error: can't close fd %d/n", fd);
+		exit(100);
 	}
-	else
+	else if (mode == 'O' && stat == -1)
 	{
-		dprintf(STDERR_FILENO, "%s %d\n", message, fd);
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filename);
+		exit(98);
 	}
-	exit(exit_code);
+	else if (mode == 'W' && stat == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", filename);
+		exit(99);
+	}
 }
