@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 
 	if (argc != 3)
 	{
-		fprintf(STDERR_FILENO, "Usage: mycp file_from file_to\n");
+		fprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		exit(1);
 	}
 
@@ -80,17 +80,17 @@ void handle_IO_error(int status, int fd, char *filename, char mode)
 {
 	if (mode == 'C' && status == -1)
 	{
-		fprintf(STDERR_FILENO, "Error: Cannot close file descriptor %d\n", fd);
-		exit(1);
+		fprintf(STDERR_FILENO, "Error: Error: Can't close fd %d\n", fd);
+		exit(100);
 	}
 	else if (mode == 'O' && status == -1)
 	{
-		fprintf(STDERR_FILENO, "Error: Cannot open file %s\n", filename);
-		exit(1);
+		fprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filename);
+		exit(98);
 	}
 	else if (mode == 'W' && status == -1)
 	{
-		fprintf(STDERR_FILENO, "Error: Cannot write to file %s\n", filename);
-		exit(1);
+		fprintf(STDERR_FILENO, "Error: Can't write to %s\n", filename);
+		exit(99);
 	}
 }
