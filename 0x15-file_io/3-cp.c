@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 
 	if (argc != 3)
 	{
-		fprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		exit(1);
 	}
 
@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
 	handle_IO_error(close_src, src_fd, NULL, 'C');
 
 	close_dest = close(dest_fd);
-	handle_IO_error(clos_dest, dest_fd, NULL 'C');
+	handle_IO_error(close_dest, dest_fd, NULL 'C');
 
 	return (0);
 }
@@ -80,17 +80,17 @@ void handle_IO_error(int status, int fd, char *filename, char mode)
 {
 	if (mode == 'C' && status == -1)
 	{
-		fprintf(STDERR_FILENO, "Error: Error: Can't close fd %d\n", fd);
+		dprintf(STDERR_FILENO, "Error: Error: Can't close fd %d\n", fd);
 		exit(100);
 	}
 	else if (mode == 'O' && status == -1)
 	{
-		fprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filename);
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filename);
 		exit(98);
 	}
 	else if (mode == 'W' && status == -1)
 	{
-		fprintf(STDERR_FILENO, "Error: Can't write to %s\n", filename);
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", filename);
 		exit(99);
 	}
 }
