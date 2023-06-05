@@ -1,3 +1,0 @@
-# C - Structures, typedef
-
-

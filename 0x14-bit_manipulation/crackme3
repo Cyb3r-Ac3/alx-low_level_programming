@@ -1,6 +1,0 @@
-#!/bin/bash
-if [ "$1" = "$(cat 101-password)" ]; then
-  echo "Congratulations!"
-else
-  echo "ko"
-fi
