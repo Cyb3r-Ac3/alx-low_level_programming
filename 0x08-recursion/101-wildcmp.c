@@ -30,6 +30,7 @@ int string_checker(char *s1, char *s2, int i, int j)
 	if (s1[i] == '\0' && s2[j] == '*')
 		return (string_checker(s1, s2, i, j + 1));
 	if (s2[j] == '*')
-		return (string_checker(s1, s2, i + 1, j) || string_checker(s1, s2, i, j + 1));
+		return (string_checker(s1, s2, i + 1, j) ||
+				string_checker(s1, s2, i, j + 1));
 	return (0);
 }
