@@ -28,7 +28,7 @@ int is_palindrome(char *s)
 /**
  * checkers - check if s is a palindrome
  * @s: string base
- * @i left index
+ * @i: left index
  * @j: right index
  * Return: 1 if s is palindrome, 0 otherwise
  */
