@@ -1,6 +1,8 @@
 #include "main.h"
 #include <stdio.h>
 
+int check(int a, int b)
+
 /**
  * _sqrt_recursion - return the natural square root of a number
  * @n: integer to find sqrt
@@ -8,9 +10,11 @@
  */
 int _sqrt_recursion(int n)
 {
-	if (n == 0)
-		return (0);
-	return (check(1, n));
+	int b;
+
+	b = 1;
+	b = check(n, b);
+	return (b);
 }
 
 /**
@@ -19,11 +23,13 @@ int _sqrt_recursion(int n)
  * @b: int
  * Return: int
  */
-int check(int a, int)
+int check(int a, int b)
 {
-	if (a * a == b)
-		return (a);
-	if (a  * a > b)
+	if (a < 0)
 		return (-1);
-	return (check(a + 1,b));
+	if (b * b == a)
+		return (b);
+	if (b > a)
+		return (-1);
+	return (check(a, b + 1));
 }
