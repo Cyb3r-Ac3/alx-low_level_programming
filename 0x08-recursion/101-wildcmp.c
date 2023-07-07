@@ -1,6 +1,6 @@
 #include "main.h"
 
-int string_cheker(char *s1, char *s2, int i, int j);
+int string_checker(char *s1, char *s2, int i, int j);
 
 /**
  * wildcmp - check if string could be considered identical
