@@ -1,5 +1,7 @@
 #include "main.h"
 
+int check(int a, int b);
+
 /**
  * is_prime_number - states if number is prime
  * @n: int
@@ -7,10 +9,13 @@
  */
 int is_prime_number(int n)
 {
-	if (n == 2)
-		return (1);
-	return (check(2, n));
+	int d;
+
+	d = 2;
+	d = check(n, d);
+	return (d);
 }
+
 
 /**
  * check - check if number is prime
@@ -20,10 +25,12 @@ int is_prime_number(int n)
  */
 int check(int a, int b)
 {
-	if (b < 2 || b % a == 0)
-		return (0);
-	else if (a > b / 2)
+	/* it is prime */
+	if (a == b)
 		return (1);
-	else
-		return (check(a + 1, b));
+	/* not prime */
+	if (a % b == 0 || a <= 1)
+		return (0);
+
+	return (check(a, b + 1));
 }
