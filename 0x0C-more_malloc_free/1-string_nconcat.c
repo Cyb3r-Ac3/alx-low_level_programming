@@ -4,7 +4,7 @@
 unsigned int length(char *s1);
 
 /**
- * string_noncat - concats two strings up to n bytes of the second one
+ * string_nconcat - concats two strings up to n bytes of the second one
  * @s1: first string
  * @s2: second string
  * @n: number of bytes
