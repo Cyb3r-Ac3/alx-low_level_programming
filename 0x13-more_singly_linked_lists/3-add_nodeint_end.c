@@ -1,35 +1,50 @@
 #include "lists.h"
+listint_t *create_node(const int n);
 
 /**
- * add_nodeint_end - adds a new node at the end of a listint_t list
- * @head: pointer to a pointer to the head of the list
- * @n: integer value to be added to the new node
- *
- * Return: the address of the new element, or NULL if it failed
+ * add_nodeint_end - Adds a node at the end of a list
+ * @head: Pointer to the beginning of a list
+ * @n: number to add to the node
+ * Return: A pointer to the beginning of the list
  */
 listint_t *add_nodeint_end(listint_t **head, const int n)
 {
 	listint_t *new_node;
-	listint_t *cursor;
+	listint_t *tmp;
 
+	tmp = *head;
 	if (head == NULL)
 		return (NULL);
-	new_node = malloc(sizeof(listint_t));
-	if (new == NULL)
-		return (NULL);
 
-	mew_node->n = n;
-	new_node->next = NULL;
+	new_node = create_node(n);
+	if (new_node == NULL)
+		return (NULL);
 	if (*head == NULL)
 	{
 		*head = new_node;
-		return (new_node);
+		return (*head);
 	}
-	cursor = *head;
-	while (cursor->next != NULL)
-	{
-		cursor = cursor->next;
-	}
-	cursor->next = new_node;
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+	tmp->next = new_node;
+
+	return (*head);
+}
+
+/**
+ * create_node - Creates a node
+ * @n: Value for the node
+ * Return: A pointer to the beginning of the list
+ */
+listint_t *create_node(const int n)
+{
+	listint_t *new_node;
+
+	new_node = malloc(sizeof(listint_t));
+	if (new_node == NULL)
+		return (NULL);
+	new_node->n = n;
+	new_node->next = NULL;
+
 	return (new_node);
 }
