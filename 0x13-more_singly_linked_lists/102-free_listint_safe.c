@@ -1,14 +1,12 @@
 #include "lists.h"
-#include "lists.h"
-#include <stdio.h>
 
 /**
- * looped_listint_len - calculates the length of a loop in a linked list
+ * loop_listint_len - calculates the length of a loop in a linked list
  * @head: pointer to the head of the linked list
  *
  * Return: the number of nodes in the loop, or 0 if there is no loop
  */
-size_t looped_listint_len(const listint_t *head)
+size_t loop_listint_len(const listint_t *head)
 {
 	const listint_t *slow_ptr, *fast_ptr;
 	size_t length = 1;
@@ -51,28 +49,38 @@ size_t looped_listint_len(const listint_t *head)
 }
 
 /**
- * print_listint_safe - Prints a listint_t list safely.
- * @head: A pointer to the head of the listint_t list.
- *
- * Return: The number of nodes in the list.
+ * free_listint_safe - frees a listint_t list
+ * @h: double pointer to the head of the list
+ * Return: the size of the list that was free'd
  */
-size_t print_listint_safe(const listint_t *head)
+size_t free_listint_safe(listint_t **h)
 {
+	listint_t *tmp;
 	size_t length, i;
 
-	length = looped_listint_len(head);
+	length = loop_listint_len(*h);
 
-	if (!length)
+	if (length == 0)
 	{
-		for (; head != NULL; length++, head = head->next)
-			printf("[%p] %d\n", (void *) head, head->n);
+		for (i = 0; *h != NULL; i++)
+		{
+			tmp = *h;
+			*h = (*h)->next;
+			free(tmp);
+		}
 	}
 	else
 	{
-		for (i = 0; i < length; i++, head = head->next)
-			printf("[%p] %d\n", (void *) head, head->n);
-		printf("-> [%p] %d\n", (void *) head, head->n);
+		for (i = 0; i < length; i++)
+		{
+			tmp = *h;
+			*h = (*h)->next;
+			free(tmp);
+		}
+		*h = NULL;
 	}
 
-	return (length);
+	h = NULL;
+
+	return (i);
 }
